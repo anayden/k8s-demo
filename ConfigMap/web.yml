@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web
+spec:
+  containers:
+  - name: web
+    image: anayden/k8s-demo:v2
+    imagePullPolicy: Always
+    ports:
+    - containerPort: 80
+    env:
+    - name: Environment_ConfigValue
+      valueFrom:
+        configMapKeyRef:
+          name: web-config
+          key: statement
+    volumeMounts:
+      - name: config-volume
+        mountPath: /app/appsettings.Production.json
+        subPath: appsettings.json
+  volumes:
+    - name: config-volume
+      configMap:
+        name: web-config

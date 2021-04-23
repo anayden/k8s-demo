@@ -1,0 +1,1 @@
+kubectl run webapp --image=anayden/k8s-demo:v2
